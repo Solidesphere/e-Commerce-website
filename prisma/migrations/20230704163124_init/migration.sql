@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "order" ALTER COLUMN "PaidAt" DROP NOT NULL;

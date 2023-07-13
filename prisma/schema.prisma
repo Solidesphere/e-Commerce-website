@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model review {
+  id        Int      @id @default(autoincrement())
+  rating    Decimal
+  comment   String
+  createdAt DateTime @default(now())
+  product   product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  belongsTo user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId Int
+  userId    Int
+}
+
+model product {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  belongsTo    user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  userId       Int
+  image        String
+  brand        String
+  category     String
+  description  String
+  reviews      review[]
+  rating       Decimal  @default(0)
+  numReviews   Int      @default(0)
+  price        Decimal  @default(0)
+  countInStock Int      @default(0)
+}
+
+model user {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  name      String
+  email     String    @unique
+  password  String
+  isAdmin   Boolean   @default(false)
+  products  product[]
+  orders    order[]
+  review    review[]
+}
+
+model order {
+  id              Int            @id @default(autoincrement())
+  belongsTo       user           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          Int
+  orderItems      Json
+  ShippingAddress Json
+  paymentMethod   String
+  paymentResult   paymentResult?
+  taxPrice        Decimal        @default(0.0)
+  Shipping        Decimal        @default(0.0)
+  TotalPrice      Decimal        @default(0.0)
+  itemsPrice      Decimal        @default(0.0)
+  isPaid          Boolean        @default(false)
+  PaidAt          DateTime?
+  isDelivred      Boolean        @default(false)
+  delivredAt      DateTime?
+  createdAt       DateTime       @default(now())
+}
+
+model paymentResult {
+  id            String @id
+  status        String
+  update_time   String
+  email_address String
+  order         order  @relation(fields: [orderId], references: [id])
+  orderId       Int    @unique
+}
