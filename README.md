@@ -4,17 +4,18 @@ eCommerce website this project has been made while taking the course of MERN Fro
 <img src="./images/screen.png"  />
 
 ## Features
--Full-featured shopping cart with quantity
--Product reviews and ratings
--Top products carousel
--Product pagination
--Product search feature
--User profile with orders
--Admin product management
--Admin user management
--Admin Order details page
--Mark orders as delivered option
--Checkout process (shipping, payment method, etc)
+
+- Full-featured shopping cart with quantity
+- Product reviews and ratings
+- Top products carousel
+- Product pagination
+- Product search feature
+- User profile with orders
+- Admin product management
+- Admin user management
+- Admin Order details page
+- Mark orders as delivered option
+- Checkout process (shipping, payment method, etc)
 
 
 # thx;
